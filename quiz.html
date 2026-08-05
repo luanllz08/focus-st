@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Estudos - Meus Quizzes</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Fundo gradiente idêntico à tela de pesquisa */
+        body { 
+            background: linear-gradient(135deg, #0d0000 0%, #1a0505 50%, #050000 100%); 
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-wrapper { width: 100%; max-width: 750px; }
+        
+        header { text-align: center; margin-bottom: 35px; }
+        header h1 { font-size: 2rem; color: #fff; margin-bottom: 8px; }
+        header p { color: #b3b3b3; font-size: 1rem; }
+
+        /* Lista de Quizzes Baseados no Histórico */
+        .quiz-selection-list { display: flex; flex-direction: column; gap: 20px; }
+        
+        .quiz-box-card {
+            background: rgba(30, 15, 15, 0.3); 
+            border: 1px solid #2d0f0f;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .quiz-box-card:hover { transform: translateY(-2px); border-color: #551a1a; }
+        
+        .quiz-info-left .subject-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #3a1111;
+            color: #ff6666;
+            font-size: 11px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .quiz-info-left h2 { color: #ffffff; font-size: 1.25rem; margin-bottom: 5px; }
+        .quiz-info-left p { color: #aaaaaa; font-size: 14px; line-height: 1.5; }
+        
+        /* Botão Cinza #1a1a1a solicitado */
+        .btn-start-quiz {
+            padding: 12px 24px;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+        .btn-start-quiz:hover { background-color: #2b2b2b; }
+
+        /* Mensagem caso não encontre histórico */
+        .no-history-msg {
+            text-align: center;
+            padding: 30px;
+            border: 1px dashed #441515;
+            border-radius: 12px;
+            background: rgba(20, 5, 5, 0.2);
+            color: #b3b3b3;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-box-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .btn-start-quiz { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-wrapper">
+        <header>
+            <h1>Seus Quizzes Personalizados</h1>
+            <p>Gerados automaticamente com base nas matérias que você pesquisou recentemente</p>
+        </header>
+
+        <!-- Container onde os Quizzes correspondentes serão exibidos -->
+        <main class="quiz-selection-list" id="quizContainer">
+            <div class="no-history-msg">
+                Nenhum termo pesquisado recentemente. Volte à barra de pesquisa para buscar uma matéria!
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Histórico sincronizado exatamente com as tags da tela de pesquisa anterior
+        const historicoDoUsuario = ["Análise Sintática", "Equação do 2º Grau"];
+        
+        // Banco de dados interno contendo os quizzes associados às pesquisas realizadas
+        const bancoDeQuizzes = {
+            "análise sintática": {
+                materia: "Gramática",
+                titulo: "Quiz: Uso da Crase e Regência Verbal",
+                detalhes: "Teste seus conhecimentos sobre as regras do acento grave e regência no Português Padrão."
+            },
+            "equação do 2º grau": {
+                materia: "Matemática",
+                titulo: "Quiz: Funções Quadráticas e Gráficos de Parábolas",
+                detalhes: "Resolva problemas envolvendo a fórmula de Bhaskara, raízes e os pontos do vértice da parábola."
+            }
+        };
+
+        function carregarQuizzesCustomizados() {
+            const container = document.getElementById('quizContainer');
+            let htmlGerado = "";
+
+            historicoDoUsuario.forEach(termo => {
+                const termoFormatado = termo.toLowerCase().trim();
+                
+                if (bancoDeQuizzes[termoFormatado]) {
+                    const dadosQuiz = bancoDeQuizzes[termoFormatado];
+                    
+                    htmlGerado += `
+                        <div class="quiz-box-card">
+                            <div class="quiz-info-left">
+                                <span class="subject-tag">${dadosQuiz.materia}</span>
+                                <h2>${dadosQuiz.titulo}</h2>
+                                <p>${dadosQuiz.detalhes}</p>
+                            </div>
+                            <button class="btn-start-quiz">Iniciar Quiz</button>
+                        </div>
+                    `;
+                }
+            });
+
+            if (htmlGerado !== "") {
+                container.innerHTML = htmlGerado;
+            }
+        }
+
+        // Inicializa os dados na tela
+        window.onload = carregarQuizzesCustomizados;
+    </script>
+
+</body>
+</html>
