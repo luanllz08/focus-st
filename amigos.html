@@ -1,0 +1,237 @@
+<!DOCTYPE html>  <html lang="pt-br">  
+<head>  
+<meta charset="UTF-8">  
+<title>Amigos</title>  <style>  
+* {  
+    margin: 0;  
+    padding: 0;  
+    box-sizing: border-box;  
+    font-family: Arial, sans-serif;  
+}  
+  
+body {  
+    background: radial-gradient(circle at bottom right, #ff0000 0%, #1a0000 40%, #000 80%);  
+    color: #fff;  
+}  
+  
+.container {  
+    display: flex;  
+    height: 100vh;  
+}  
+  
+.sidebar {  
+    width: 230px;  
+    background: #252525;  
+    padding: 20px;  
+}  
+  
+.profile {  
+    display: flex;  
+    align-items: center;  
+    gap: 10px;  
+    margin-bottom: 30px;  
+}  
+  
+.profile img {  
+    width: 50px;  
+    border-radius: 50%;  
+}  
+  
+.menu {  
+    list-style: none;  
+}  
+  
+.menu li {  
+    margin: 8px 0;  
+    background: #1a1a1a;  
+    border-radius: 8px;  
+    transition: 0.3s;  
+}  
+  
+.menu li:hover {  
+    transform: scale(1.05);  
+    background: #ca1a1a;  
+}  
+  
+.menu li a {  
+    display: block;  
+    padding: 12px;  
+    color: #fff;  
+    text-decoration: none;  
+}  
+  
+.icon {  
+    filter: grayscale(100%);  
+    margin-right: 8px;  
+}  
+  
+.menu li:hover {  
+    background: #ff0000;  
+}  
+  
+.menu li.active {  
+    background: #ff0000;  
+}  
+  
+.menu li.active a {  
+    font-weight: bold;  
+}  
+  
+.main {  
+    flex: 1;  
+    padding: 20px;  
+}  
+  
+.content {  
+    background: #1a1a1a;  
+    height: 100%;  
+    border-radius: 12px;  
+    padding: 20px;  
+    overflow-y: auto;  
+}  
+  
+.friend-box {  
+    background: #0d0d0d;  
+    padding: 15px;  
+    border-radius: 10px;  
+    border: 2px solid #ff0000;  
+    margin-bottom: 20px;  
+    display: flex;  
+    align-items: center;  
+    justify-content: space-between;  
+}  
+  
+.friend-box .status {  
+    width: 10px;  
+    height: 10px;  
+    border-radius: 50%;  
+    background: #ff0000;  
+}  
+  
+.friend-box.online {  
+    border-color: #00ff00;  
+}  
+  
+.friend-box.online .status {  
+    background: #00ff00;  
+}  
+  
+.friend-box.offline {  
+    border-color: #666;  
+}  
+  
+.friend-box.offline .status {  
+    background: #666;  
+}  
+  
+.amigos-tn{  
+    background: #0d0d0d;  
+    padding: 15px;  
+    border-radius: 10px;  
+    border: 2px solid #3cff00;  
+    margin-bottom: 20px;  
+}  
+  
+.amigos-td{  
+    background: #0d0d0d;  
+    padding: 15px;  
+    border: 2px solid #504f4f;  
+    border-radius: 10px;  
+    margin-bottom: 20px;  
+}  
+  
+input {  
+    width: 100%;  
+    padding: 15px;  
+    margin: 8px 0;  
+    border-radius: 6px;  
+    border: none;  
+}  
+  
+button {  
+    padding: 10px 20px;  
+    background: #ff0000;  
+    border: none;  
+    color: white;  
+    border-radius: 6px;  
+    cursor: pointer;  
+    transition: 0.3s;  
+}  
+  
+  
+button:hover {  
+    background: #cc0000;  
+}  
+  
+.section {  
+    margin-bottom: 30px;  
+}  
+  
+.section h3 {  
+    margin-bottom: 15px;  
+}  
+</style>  </head>  <body>  <div class="container">  <div class="sidebar">  
+
+    <div class="profile">  
+        <img src="icon.jpeg">  
+
+        <div>  
+            <strong>Luan Cardoso</strong><br>  
+            <small>ID: 7842726</small>  
+        </div>  
+    </div>  
+
+    <ul class="menu">  
+
+        <li>  
+            <a href="interface.html">  
+                <span class="icon">🏠</span> Home  
+            </a>  
+        </li>  
+
+        <li>  
+            <a href="contas.html">  
+                <span class="icon">🔍</span> Contas  
+            </a>  
+        </li>  
+
+        <li class="active">  
+            <a>  
+                <span class="icon">🧠</span> Amigos  
+            </a>  
+        </li>  
+
+        <li>  
+            <a href="#">  
+                <span class="icon">🔗</span> Compartilhar  
+            </a>  
+        </li>  
+    </ul>  
+</div>  
+
+<div class="main">  
+
+    <div class="content">  
+
+        <h2>Adicionar Amigos</h2><br>  
+
+        <input type="text" placeholder="digite o id de Usuário"><br><br>  
+
+        <div class="section">  
+            <h2>Todos Amigos</h2>  
+        </div>  
+
+        <div class="amigos-tn">  
+            <h3>Thiago</h3>  
+        </div>  
+
+        <div class="amigos-td">  
+            <h3>Julio</h3>  
+        </div>  
+
+    </div>  
+
+</div>
+
+</div>  </body>  
+</html>

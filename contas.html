@@ -1,0 +1,190 @@
+<!DOCTYPE html>  <html lang="pt-br">  
+<head>  
+<meta charset="UTF-8">  
+<title>Contas</title>  <style>  
+* {  
+    margin: 0;  
+    padding: 0;  
+    box-sizing: border-box;  
+    font-family: Arial, sans-serif;  
+}  
+  
+body {  
+    background: radial-gradient(circle at bottom right, #ff0000 0%, #1a0000 40%, #000 80%);  
+    color: #fff;  
+}  
+  
+.container {  
+    display: flex;  
+    height: 100vh;  
+}  
+  
+/* MENU */  
+.sidebar {  
+    width: 230px;  
+    background: #252525;  
+    padding: 20px;  
+}  
+  
+.profile {  
+    display: flex;  
+    align-items: center;  
+    gap: 10px;  
+    margin-bottom: 30px;  
+}  
+  
+.profile img {  
+    width: 50px;  
+    border-radius: 50%;  
+}  
+  
+/* MENU */  
+.menu {  
+    list-style: none;  
+}  
+  
+.menu li {  
+    margin: 8px 0;  
+    background: #1a1a1a;  
+    border-radius: 8px;  
+    transition: 0.3s;  
+}  
+  
+.menu li a {  
+    display: block;  
+    padding: 12px;  
+    color: #fff;  
+    text-decoration: none;  
+}  
+  
+/* ÍCONES PRETO E BRANCO */  
+.icon {  
+    filter: grayscale(100%);  
+    margin-right: 8px;  
+}  
+  
+/* HOVER */  
+.menu li:hover {  
+    background: #ff0000;  
+}  
+  
+/* ATIVO */  
+.menu li.active {  
+    background: #ff0000;  
+}  
+  
+.menu li.active a {  
+    font-weight: bold;  
+}  
+  
+/* MAIN */  
+.main {  
+    flex: 1;  
+    padding: 20px;  
+}  
+  
+/* ÁREA */  
+.content {  
+    background: #1a1a1a;  
+    height: 100%;  
+    border-radius: 12px;  
+    padding: 20px;  
+}  
+  
+/* CONTA */  
+.account-box {  
+    background: #0d0d0d;  
+    padding: 15px;  
+    border-radius: 10px;  
+    border: 2px solid #ff0000;  
+    margin-bottom: 20px;  
+}  
+  
+/* INPUT */  
+input {  
+    width: 100%;  
+    padding: 10px;  
+    margin: 8px 0;  
+    border-radius: 6px;  
+    border: none;  
+    outline: none;  
+}  
+  
+/* BOTÃO */  
+button {  
+    padding: 10px 20px;  
+    background: #ff0000;  
+    border: none;  
+    color: white;  
+    border-radius: 6px;  
+    cursor: pointer;  
+    transition: 0.3s;  
+}  
+  
+button:hover {  
+    background: #cc0000;  
+}  
+</style>  </head>  <body>  <div class="container">  <div class="sidebar">  
+
+    <div class="profile">  
+        <img src="icon.jpeg">  
+
+        <div>  
+            <strong>Luan Cardoso</strong><br>  
+            <small>ID: 7842726</small>  
+        </div>  
+    </div>  
+
+    <ul class="menu">  
+
+        <li>  
+            <a href="interface.html">  
+                <span class="icon">🏠</span> Home  
+            </a>  
+        </li>  
+
+        <li class="active">  
+            <a>  
+                <span class="icon">🔍</span> Contas  
+            </a>  
+        </li>  
+
+        <li>  
+            <a href="amigos.html">  
+                <span class="icon">🧠</span> Amigos  
+            </a>  
+        </li>  
+
+        <li>  
+            <a href="#">  
+                <span class="icon">🔗</span> Compartilhar  
+            </a>  
+        </li>  
+    </ul>  
+</div>  
+
+<div class="main">  
+
+    <div class="content">  
+
+        <h2>Minhas Contas</h2><br>  
+
+        <div class="account-box">  
+            <strong>Conta:</strong><br><br>  
+            juliopretinho@gmail.com  
+        </div>  
+
+        <h3>Adicionar Login</h3><br>  
+
+        <input type="text" placeholder="Usuário ou Email">  
+
+        <input type="password" placeholder="Senha">  
+
+        <button>Adicionar</button>  
+
+    </div>  
+
+</div>
+
+</div>  </body>  
+</html>
