@@ -1,421 +1,1285 @@
-<!DOCTYPE html>  <html lang="pt-br">  
-<head>  
-<meta charset="UTF-8">  
-<title>Painel</title>  
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Painel</title>
 
 <style>
 
-#popup{
-display:none;
-position:fixed;
-top:50%;
-left:60%;
-transform:translate(-50%,-50%);
-background:#1a1a1a;
-padding:20px;
-width:350px;
-border-radius:10px;
-box-shadow:0px 0px 20px black;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   POPUP
+========================= */
+
+#popup {
+    display: none;
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: #1a1a1a;
+
+    padding: 20px;
+
+    width: 350px;
+
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.8);
+
+    z-index: 1000;
+}
+
+#popup h2 {
+    margin-bottom: 10px;
+    color: white;
 }
 
 #popup input,
-#popup select{
-width:100%;
-padding:10px;
-margin-top:10px;
-background:#0d0d0d;
-border:none;
-color:white;
-box-sizing:border-box;
+#popup select {
+
+    width: 100%;
+
+    padding: 10px;
+
+    margin-top: 10px;
+
+    background: #0d0d0d;
+
+    border: none;
+
+    color: white;
+
+    box-sizing: border-box;
+
+    outline: none;
 }
 
-#popup button{
-margin-top:15px;
-padding:10px;
-border:none;
-background:red;
-color:white;
-cursor:pointer;
+#popup input:focus,
+#popup select:focus {
+
+    border: 1px solid #ff0000;
+
 }
 
-* {  
-    margin: 0;  
-    padding: 0;  
-    box-sizing: border-box;  
-    font-family: Arial, sans-serif;  
-}  
-  
-body {  
-    background: radial-gradient(circle at bottom right, #ff0000 0%, #1a0000 40%, #000 80%);  
-    color: #fff;  
-}  
-  
-.container {  
-    display: flex;  
-    height: 100vh;  
-}  
-  
-.sidebar {  
-    width: 230px;  
-    background: #252525;  
-    padding: 20px;  
-}  
-  
-.profile {  
-    display: flex;  
-    align-items: center;  
-    gap: 10px;  
-    margin-bottom: 30px;  
-}  
-  
-.profile img {  
-    width: 50px;  
-    border-radius: 50%;  
-}  
-  
-.menu {  
-    list-style: none;  
-}  
-  
-.menu li {  
-    margin: 8px 0;  
-    background: #1a1a1a;  
-    border-radius: 8px;  
-    transition: 0.3s;  
-}  
-  
-.menu li:hover {  
-    transform: scale(1.05);  
-    background: #ca1a1a;  
-}  
-  
-.menu li a {  
-    display: block;  
-    padding: 12px;  
-    color: #fff;  
-    text-decoration: none;  
-}  
-  
-.icon {  
-    filter: grayscale(100%);  
-    margin-right: 8px;  
-}  
-  
-  
-.menu li:hover {  
-    background: #ff0000;  
-}  
-  
-.menu li.active {  
-    background: #ff0000;  
-}  
-  
-.menu li.active a {  
-    font-weight: bold;  
-}  
-  
-.main {  
-    flex: 1;  
-    padding: 20px;  
-}  
-  
-.banner {  
-    position: relative;  
-    display: flex;  
-    justify-content: space-between;  
-    background: url('https://images.unsplash.com/photo-1549887534-1541e9326642') center/cover;  
-    border-radius: 12px;  
-    padding: 20px;  
-    margin-bottom: 20px;  
-    overflow: hidden;  
-}  
-  
-.banner::before {  
-    content: "";  
-    position: absolute;  
-    inset: 0;  
-    background: rgba(43, 42, 42, 0.6);  
-}  
-  
-.banner-content {  
-    position: relative;  
-    z-index: 1;  
-}  
-  
-.banner img {  
-    height: 100px;  
-    border-radius: 10px;  
-    position: relative;  
-    z-index: 1;  
-}  
-  
-.invite {  
-    background: linear-gradient(90deg, #cc0000, #ff0000);  
-    padding: 15px;  
-    border-radius: 12px;  
-    margin-bottom: 20px;  
-    display: flex;  
-    justify-content: space-between;  
-    align-items: center;  
-}  
-  
-.invite button {  
-    padding: 10px 18px;  
-    border: none;  
-    border-radius: 8px;  
-    background: #fff;  
-    color: #000;  
-    cursor: pointer;  
-    font-weight: bold;  
-}  
-  
-.invite button:hover {  
-    transform: scale(1.05);  
-    background: #ffffff;  
-}  
-  
-.cards {  
-    display: flex;  
-    gap: 15px;  
-    margin-bottom: 20px;  
-}  
-  
-.card {  
-    flex: 1;  
-    background: #1a1a1a;  
-    padding: 15px;  
-    border-radius: 10px;  
-    text-align: center;  
-    transition: 0.3s;  
-}  
-  
-.card:hover {  
-    transform: scale(1.05);  
-    background: #ca1a1a;  
-}  
-  
-.card a {  
-    text-decoration: none;  
-    color: #fff;  
-    display: block;  
-}  
-  
-.card img {  
-    width: 40px;  
-    margin-bottom: 10px;  
-}  
-  
-.agenda {  
-    background: #1a1a1a;  
-    padding: 15px;  
-    border-radius: 10px;  
-}  
-  
-.item {  
-    background: #0d0d0d;  
-    padding: 10px;  
-    margin-top: 10px;  
-    border-radius: 8px;  
-    display: flex;  
-    justify-content: space-between;  
-}  
-  
-.actions button {  
-    border: none;  
-    padding: 6px 10px;  
-    margin-left: 5px;  
-    border-radius: 6px;  
-    cursor: pointer;  
-}  
-  
-.actions button:hover {  
-    transform: scale(1.05);  
-    background: #ca1a1a;  
-}  
-  
-.edit {  
-    background: #333;  
-    color: #fff;  
-}  
-  
-.delete {  
-    background: #ff0000;  
-    color: #fff;  
-}  
+
+/* Botões do popup */
+
+.popup-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+.popup-buttons button {
+
+    padding: 10px 15px;
+
+    border: none;
+
+    background: #ff0000;
+
+    color: white;
+
+    cursor: pointer;
+
+    border-radius: 5px;
+}
+
+.popup-buttons button:hover {
+
+    background: #cc0000;
+
+}
+
+
+/* =========================
+   FUNDO
+========================= */
+
+body {
+
+    background:
+        radial-gradient(
+            circle at bottom right,
+            #ff0000 0%,
+            #1a0000 40%,
+            #000 80%
+        );
+
+    color: #fff;
+
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+
+    display: flex;
+
+    height: 100vh;
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+
+    width: 230px;
+
+    background: #252525;
+
+    padding: 20px;
+
+}
+
+
+.profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.profile img {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+}
+
+
+.menu {
+
+    list-style: none;
+
+}
+
+
+.menu li {
+
+    margin: 8px 0;
+
+    background: #1a1a1a;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+
+}
+
+
+.menu li:hover {
+
+    transform: scale(1.05);
+
+    background: #ff0000;
+
+}
+
+
+.menu li a {
+
+    display: block;
+
+    padding: 12px;
+
+    color: #fff;
+
+    text-decoration: none;
+
+}
+
+
+.icon {
+
+    filter: grayscale(100%);
+
+    margin-right: 8px;
+
+}
+
+
+.menu li.active {
+
+    background: #ff0000;
+
+}
+
+
+.menu li.active a {
+
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   ÁREA PRINCIPAL
+========================= */
+
+.main {
+
+    flex: 1;
+
+    padding: 20px;
+
+}
+
+
+/* =========================
+   BANNER
+========================= */
+
+.banner {
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    background:
+        url('https://images.unsplash.com/photo-1549887534-1541e9326642')
+        center/cover;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    overflow: hidden;
+
+}
+
+
+.banner::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(43, 42, 42, 0.6);
+
+}
+
+
+.banner-content {
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+.banner img {
+
+    height: 100px;
+
+    width: 155px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+/* =========================
+   CONVIDAR
+========================= */
+
+.invite {
+
+    background:
+        linear-gradient(
+            90deg,
+            #cc0000,
+            #ff0000
+        );
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.invite button {
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #000;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+.invite button:hover {
+
+    transform: scale(1.05);
+
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.card {
+
+    flex: 1;
+
+    background: #1a1a1a;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    transition: 0.3s;
+
+}
+
+
+.card:hover {
+
+    transform: scale(1.05);
+
+    background: #ff0000;
+
+}
+
+
+.card a {
+
+    text-decoration: none;
+
+    color: #fff;
+
+    display: block;
+
+}
+
+
+.card img {
+
+    width: 40px;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =========================
+   AGENDA
+========================= */
+
+.agenda {
+
+    background: #1a1a1a;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+}
+
+
+.agenda h3 {
+
+    margin-bottom: 5px;
+
+}
+
+
+/* Cada tarefa */
+
+.item {
+
+    background: #0d0d0d;
+
+    padding: 10px;
+
+    margin-top: 10px;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+/* Botões */
+
+.actions button {
+
+    border: none;
+
+    padding: 6px 10px;
+
+    margin-left: 5px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+}
+
+
+.actions button:hover {
+
+    transform: scale(1.05);
+
+}
+
+
+.edit {
+
+    background: #333;
+
+    color: #fff;
+
+}
+
+
+.delete {
+
+    background: #ff0000;
+
+    color: #fff;
+
+}
+
+
+.delete:hover {
+
+    background: #cc0000;
+
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+
+        width: 180px;
+
+    }
+
+    .cards {
+
+        flex-direction: column;
+
+    }
+
+    .item {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+    }
+
+}
+
 </style>
-</head>  
+
+</head>
+
+
 <body>
 
-    
+
+<!-- =========================
+     POPUP NOVA TAREFA
+========================= -->
+
 <div id="popup">
 
-<h2>Nova tarefa</h2>
+    <h2>Nova tarefa</h2>
 
-<input type="text" placeholder="Matéria">
 
-<select>
-<option>Prova</option>
-<option>Trabalho</option>
-<option>Atividade</option>
-</select>
+    <input
+        type="text"
+        id="materia"
+        placeholder="Matéria"
+    >
 
-<input type="date">
 
-<button>Salvar</button>
+    <select id="tipo">
 
-<button onclick="fecharPopup()">
-Fechar
-</button>
+        <option value="Prova">
+            Prova
+        </option>
+
+        <option value="Trabalho">
+            Trabalho
+        </option>
+
+        <option value="Atividade">
+            Atividade
+        </option>
+
+    </select>
+
+
+    <input
+        type="date"
+        id="data"
+    >
+
+
+    <div class="popup-buttons">
+
+        <button onclick="salvarTarefa()">
+            Salvar
+        </button>
+
+        <button onclick="fecharPopup()">
+            Fechar
+        </button>
+
+    </div>
 
 </div>
+
+
+
+<!-- =========================
+     SITE
+========================= -->
+
+<div class="container">
+
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+
+        <div class="profile">
+
+            <img src="icon.jpeg">
+
+            <div>
+
+                <strong>
+                    Luan Cardoso
+                </strong>
+
+                <br>
+
+                <small>
+                    ID: 7842726
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <ul class="menu">
+
+
+            <li class="active">
+
+                <a href="#">
+
+                    <span class="icon">
+                        🏠
+                    </span>
+
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="contas.html">
+
+                    <span class="icon">
+                        🔍
+                    </span>
+
+                    Contas
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="amigos.html">
+
+                    <span class="icon">
+                        🧠
+                    </span>
+
+                    Amigos
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="compartilhar.html">
+
+                    <span class="icon">
+                        🔗
+                    </span>
+
+                    Compartilhar
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="main">
+
+
+        <!-- BANNER -->
+
+        <div class="banner">
+
+            <div class="banner-content">
+
+                <h2>
+                    Olá, Luan Cardoso!
+                </h2>
+
+                <p>
+                    Bem-vindo
+                </p>
+
+            </div>
+
+
+            <img src="fundotela.jpeg">
+
+        </div>
+
+
+
+        <!-- CONVIDAR -->
+
+        <div class="invite">
+
+            <div>
+
+                <strong>
+                    Convidar amigos
+                </strong>
+
+                <br>
+
+                Ganhe recompensas!
+
+            </div>
+
+
+            <button>
+                Convidar
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             CARDS
+        ========================= -->
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <a href="pesquisa.html">
+
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/search.png">
+
+                    <p>
+                        Pesquisa
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <a href="quiz.html">
+
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/brain.png">
+
+                    <p>
+                        Quizes
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <a href="#" onclick="abrirPopup(); return false;">
+
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/calendar.png">
+
+                    <p>
+                        Agenda
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <a href="sala.html">
+
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/classroom.png">
+
+                    <p>
+                        Sala
+                    </p>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             AGENDA
+        ========================= -->
+
+        <div class="agenda">
+
+            <h3>
+                Agenda
+            </h3>
+
+
+            <!--
+                As tarefas serão colocadas aqui
+                automaticamente pelo JavaScript.
+            -->
+
+            <div id="listaAgenda"></div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
 
 <script>
 
-function abrirPopup(){
+/* ==========================================
+   DADOS INICIAIS
+========================================== */
 
-document.getElementById("popup").style.display = "block";
+const tarefasIniciais = [
+
+    {
+        id: 1,
+        tipo: "Prova",
+        materia: "Biologia",
+        data: "17/02"
+    },
+
+    {
+        id: 2,
+        tipo: "Trabalho",
+        materia: "História",
+        data: "19/02"
+    },
+
+    {
+        id: 3,
+        tipo: "Atividade",
+        materia: "Matemática",
+        data: "22/02"
+    }
+
+];
+
+
+/* ==========================================
+   ABRIR POPUP
+========================================== */
+
+function abrirPopup() {
+
+    document.getElementById("popup").style.display = "block";
 
 }
 
-function fecharPopup(){
 
-document.getElementById("popup").style.display = "none";
+/* ==========================================
+   FECHAR POPUP
+========================================== */
+
+function fecharPopup() {
+
+    document.getElementById("popup").style.display = "none";
 
 }
+
+
+/* ==========================================
+   CARREGAR TAREFAS
+========================================== */
+
+function carregarTarefas() {
+
+    let tarefas =
+        JSON.parse(
+            localStorage.getItem("minhasTarefas")
+        );
+
+
+    /*
+        Se ainda não existir nada salvo,
+        coloca as 3 tarefas originais.
+    */
+
+    if (!tarefas) {
+
+        tarefas = tarefasIniciais;
+
+        localStorage.setItem(
+            "minhasTarefas",
+            JSON.stringify(tarefas)
+        );
+
+    }
+
+
+    mostrarTarefas(tarefas);
+
+}
+
+
+/* ==========================================
+   MOSTRAR TAREFAS NA AGENDA
+========================================== */
+
+function mostrarTarefas(tarefas) {
+
+    const lista =
+        document.getElementById("listaAgenda");
+
+
+    lista.innerHTML = "";
+
+
+    tarefas.forEach(function(tarefa) {
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className = "item";
+
+
+        item.innerHTML = `
+
+            <span>
+                ${tarefa.tipo}/${tarefa.materia} - ${tarefa.data}
+            </span>
+
+            <div class="actions">
+
+                <button
+                    class="edit"
+                    onclick="editarTarefa(${tarefa.id})"
+                >
+                    Editar
+                </button>
+
+                <button
+                    class="delete"
+                    onclick="excluirTarefa(${tarefa.id})"
+                >
+                    Excluir
+                </button>
+
+            </div>
+
+        `;
+
+
+        lista.appendChild(item);
+
+    });
+
+}
+
+
+/* ==========================================
+   SALVAR NOVA TAREFA
+========================================== */
+
+function salvarTarefa() {
+
+
+    const materia =
+        document.getElementById("materia").value.trim();
+
+
+    const tipo =
+        document.getElementById("tipo").value;
+
+
+    const data =
+        document.getElementById("data").value;
+
+
+    /* Verifica se preencheu tudo */
+
+    if (
+        materia === "" ||
+        data === ""
+    ) {
+
+        alert("Preencha a matéria e a data.");
+
+        return;
+
+    }
+
+
+    /* Pega tarefas existentes */
+
+    let tarefas =
+        JSON.parse(
+            localStorage.getItem("minhasTarefas")
+        ) || [];
+
+
+    /* Cria novo ID */
+
+    const novoId =
+        Date.now();
+
+
+    /* Converte a data */
+
+    const partes =
+        data.split("-");
+
+
+    const dataFormatada =
+        partes[2] + "/" +
+        partes[1] + "/" +
+        partes[0];
+
+
+    /* Nova tarefa */
+
+    const novaTarefa = {
+
+        id: novoId,
+
+        tipo: tipo,
+
+        materia: materia,
+
+        data: dataFormatada
+
+    };
+
+
+    /*
+        ADICIONA NO FINAL DA LISTA.
+        Por isso ela aparecerá
+        embaixo das outras.
+    */
+
+    tarefas.push(novaTarefa);
+
+
+    /* Salva no navegador */
+
+    localStorage.setItem(
+        "minhasTarefas",
+        JSON.stringify(tarefas)
+    );
+
+
+    /* Atualiza a tela */
+
+    mostrarTarefas(tarefas);
+
+
+    /* Limpa os campos */
+
+    document.getElementById("materia").value = "";
+
+    document.getElementById("data").value = "";
+
+
+    /* Fecha popup */
+
+    fecharPopup();
+
+}
+
+
+/* ==========================================
+   EXCLUIR TAREFA
+========================================== */
+
+function excluirTarefa(id) {
+
+
+    let tarefas =
+        JSON.parse(
+            localStorage.getItem("minhasTarefas")
+        ) || [];
+
+
+    /*
+        Mantém todas as tarefas
+        EXCETO a que foi clicada.
+    */
+
+    tarefas =
+        tarefas.filter(function(tarefa) {
+
+            return tarefa.id !== id;
+
+        });
+
+
+    /* Salva novamente */
+
+    localStorage.setItem(
+        "minhasTarefas",
+        JSON.stringify(tarefas)
+    );
+
+
+    /* Atualiza a agenda */
+
+    mostrarTarefas(tarefas);
+
+}
+
+
+/* ==========================================
+   EDITAR TAREFA
+========================================== */
+
+function editarTarefa(id) {
+
+    let tarefas =
+        JSON.parse(
+            localStorage.getItem("minhasTarefas")
+        ) || [];
+
+
+    const tarefa =
+        tarefas.find(function(t) {
+
+            return t.id === id;
+
+        });
+
+
+    if (!tarefa) {
+        return;
+    }
+
+
+    /*
+        Por enquanto usamos prompts
+        para editar rapidamente.
+    */
+
+    const novaMateria =
+        prompt(
+            "Digite a nova matéria:",
+            tarefa.materia
+        );
+
+
+    if (novaMateria === null) {
+        return;
+    }
+
+
+    const novoTipo =
+        prompt(
+            "Digite o tipo (Prova, Trabalho ou Atividade):",
+            tarefa.tipo
+        );
+
+
+    if (novoTipo === null) {
+        return;
+    }
+
+
+    const novaData =
+        prompt(
+            "Digite a data (dd/mm):",
+            tarefa.data
+        );
+
+
+    if (novaData === null) {
+        return;
+    }
+
+
+    tarefa.materia =
+        novaMateria;
+
+
+    tarefa.tipo =
+        novoTipo;
+
+
+    tarefa.data =
+        novaData;
+
+
+    localStorage.setItem(
+        "minhasTarefas",
+        JSON.stringify(tarefas)
+    );
+
+
+    mostrarTarefas(tarefas);
+
+}
+
+
+/* ==========================================
+   INICIALIZAÇÃO
+========================================== */
+
+window.onload = function() {
+
+    carregarTarefas();
+
+};
 
 </script>
-    
-    <div class="container">  <div class="sidebar">  
 
-    <div class="profile">  
-        <img src="icon.jpeg">  
-        <div>  
-            <strong>Luan Cardoso</strong><br>  
-            <small>ID: 7842726</small>  
-        </div>  
-    </div>  
 
-    <ul class="menu">  
+</body>
 
-        <li class="active">  
-            <a>  
-                <span class="icon">🏠</span> Home  
-            </a>  
-        </li>  
-
-        <li>  
-            <a href="contas.html">  
-                <span class="icon">🔍</span> Contas  
-            </a>  
-        </li>  
-
-        <li>  
-            <a href="amigos.html">  
-                <span class="icon">🧠</span> Amigos  
-            </a>  
-        </li>  
-
-        <li>  
-            <a href="compartilhar.html">  
-                <span class="icon">🔗</span> Compartilhar  
-            </a>  
-        </li>  
-
-    </ul>  
-</div>  
-
-<div class="main">  
-
-    <div class="banner">  
-        <div class="banner-content">  
-            <h2>Olá, Luan Cardoso!</h2>  
-            <p>Bem-vindo</p>  
-        </div>  
-
-        <img src="fundotela.jpeg">  
-    </div>  
-
-    <div class="invite">  
-        <div>  
-            <strong>Convidar amigos</strong><br>  
-            Ganhe recompensas!  
-        </div>  
-
-        <button>Convidar</button>  
-    </div>  
-
-    <div class="cards">  
-
-        <div class="card">  
-            <a href="pesquisa.html">  
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/search.png">  
-                <p>Pesquisa</p>  
-            </a>  
-        </div>  
-
-        <div class="card">  
-            <a href="quiz.html">  
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/brain.png">  
-                <p>Quizes</p>  
-            </a>  
-        </div>  
-
-        <div class="card">  
-            <a href="#" onclick="abrirPopup()">  
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/calendar.png">  
-                <p>Agenda</p>  
-            </a>  
-        </div>  
-
-        <div class="card">  
-            <a href="sala.html">  
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/classroom.png">  
-                <p>Sala</p>  
-            </a>  
-        </div>  
-
-    </div>  
-
-    <div class="agenda">  
-
-        <h3>Agenda</h3>  
-
-        <div class="item">  
-
-            <span>Prova/Biologia - 17/02</span>  
-
-            <div class="actions">  
-                <a href="editar"><button class="edit">Editar</button></a>  
-                <button class="delete">Excluir</button>  
-            </div>  
-
-        </div>  
-
-        <div class="item">  
-
-            <span>Trabalho/História - 19/02</span>  
-
-            <div class="actions">  
-                <a href="editar"><button class="edit">Editar</button></a>  
-                <button class="delete">Excluir</button>  
-            </div>  
-
-        </div>  
-
-        <div class="item">  
-
-            <span>Atividade/Matemática - 22/02</span>  
-
-            <div class="actions">  
-                <a href="editar"><button class="edit">Editar</button></a>  
-                <button class="delete">Excluir</button>  
-            </div>  
-
-        </div>  
-
-    </div>  
-
-</div>
-
-</div>  </body>  
-</html> 
+</html>

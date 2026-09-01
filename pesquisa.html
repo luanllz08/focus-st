@@ -4,228 +4,563 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Estudos - Pesquisa</title>
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        
-        /* Fundo gradiente puxado para o preto com vermelho escuro */
-        body { 
-            background: linear-gradient(135deg, #0d0000 0%, #1a0505 50%, #050000 100%); 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* =========================
+           CORES PRINCIPAIS
+        ========================= */
+        :root {
+            --vermelho: #ff0000;
+            --vermelho-claro: #ff1a1a;
+            --vermelho-medio: #e00000;
+            --vermelho-escuro: #8f0000;
+
+            --fundo: #050000;
+            --fundo-card: #171717;
+            --fundo-input: #141414;
+
+            --branco: #ffffff;
+            --cinza: #b3b3b3;
+        }
+
+        /* Fundo */
+        body {
+            background: linear-gradient(
+                135deg,
+                #050000 0%,
+                #140000 45%,
+                #250000 75%,
+                #600000 100%
+            );
+
             color: #e0e0e0;
             min-height: 100vh;
-            padding: 40px 20px; 
+            padding: 40px 20px;
         }
-        
-        .search-container { max-width: 1000px; margin: 0 auto; }
-        
-        header { text-align: center; margin-bottom: 40px; }
-        header h1 { font-size: 2.5rem; color: #fff; margin-bottom: 10px; font-weight: 600; }
-        header p { color: #b3b3b3; font-size: 1.1rem; }
-        
-        /* Barra de pesquisa superior */
-        .search-box { display: flex; gap: 15px; margin-bottom: 40px; }
-        .search-input { 
-            flex: 1; 
-            padding: 16px 25px; 
-            border: 1px solid #3d1414; 
-            border-radius: 30px; 
-            font-size: 16px; 
-            background: rgba(20, 20, 20, 0.8); 
-            color: #fff;
+
+        .search-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--branco);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        header p {
+            color: var(--cinza);
+            font-size: 1.1rem;
+        }
+
+        /* Barra de pesquisa */
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 16px 25px;
+
+            border: 1px solid #5c0000;
+            border-radius: 30px;
+
+            font-size: 16px;
+
+            background: rgba(20, 20, 20, 0.9);
+            color: var(--branco);
+
             outline: none;
-            transition: border-color 0.3s;
+
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .search-input:focus { border-color: #801a1a; }
-        
-        /* Botão Principal na cor #1a1a1a */
-        .btn-search { 
-            padding: 0 35px; 
-            border: 1px solid #333333; 
-            border-radius: 30px; 
-            background-color: #1a1a1a; 
-            color: #ffffff; 
-            font-size: 16px; 
+
+        .search-input:focus {
+            border-color: var(--vermelho);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.25);
+        }
+
+        /* Botão pesquisar */
+        .btn-search {
+            padding: 0 35px;
+
+            border: 1px solid #333;
+            border-radius: 30px;
+
+            background-color: #1a1a1a;
+            color: var(--branco);
+
+            font-size: 16px;
             font-weight: bold;
-            cursor: pointer; 
+
+            cursor: pointer;
+
             transition: background-color 0.3s, transform 0.1s;
         }
-        .btn-search:hover { background-color: #2b2b2b; }
-        .btn-search:active { transform: scale(0.98); }
-        
-        /* Grid de Conteúdo - Alinhado no topo */
-        .main-layout { display: flex; gap: 30px; align-items: flex-start; }
-        
-        /* Lateral de Filtros */
-        .filters-sidebar { 
-            width: 260px; 
-            background: rgba(25, 10, 10, 0.4); 
-            padding: 25px; 
-            border-radius: 16px; 
-            border: 1px solid #331111;
-            height: fit-content; 
+
+        .btn-search:hover {
+            background-color: #2b2b2b;
         }
-        .filter-group { margin-bottom: 25px; }
-        .filter-group h3 { margin-bottom: 15px; font-size: 16px; color: #ff4d4d; letter-spacing: 0.5px; }
-        .filter-group label { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: #cccccc; font-size: 14px; cursor: pointer; }
-        .filter-group input[type="checkbox"] { accent-color: #ff4d4d; }
-        
-        /* Lista de Resultados */
-        .results-section { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-        
-        /* Histórico de Pesquisa */
+
+        .btn-search:active {
+            transform: scale(0.98);
+        }
+
+        /* Layout */
+        .main-layout {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* Filtros */
+        .filters-sidebar {
+            width: 260px;
+
+            background: rgba(25, 5, 5, 0.65);
+
+            padding: 25px;
+            border-radius: 16px;
+
+            border: 1px solid #5c0000;
+
+            height: fit-content;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group h3 {
+            margin-bottom: 15px;
+
+            font-size: 16px;
+
+            color: var(--vermelho);
+            letter-spacing: 0.5px;
+        }
+
+        .filter-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 12px;
+
+            color: #cccccc;
+            font-size: 14px;
+
+            cursor: pointer;
+        }
+
+        .filter-group input[type="checkbox"] {
+            accent-color: var(--vermelho);
+        }
+
+        /* Resultados */
+        .results-section {
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+        /* Histórico */
         .search-history-box {
-            background: rgba(20, 5, 5, 0.2);
+            background: rgba(20, 5, 5, 0.45);
+
             padding: 15px 20px;
+
             border-radius: 12px;
-            border: 1px dashed #441515;
+
+            border: 1px dashed #720000;
         }
+
         .search-history-title {
             font-size: 14px;
-            color: #ff4d4d;
+
+            color: var(--vermelho);
             font-weight: 600;
+
             text-transform: uppercase;
             letter-spacing: 1px;
+
             margin-bottom: 10px;
         }
-        .history-items { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .history-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         .history-tag {
             display: inline-flex;
             align-items: center;
             gap: 6px;
+
             padding: 6px 14px;
+
             background: #1a1a1a;
-            border: 1px solid #333333;
+
+            border: 1px solid #333;
+
             color: #b3b3b3;
+
             font-size: 13px;
+
             border-radius: 20px;
+
             text-decoration: none;
+
             transition: color 0.2s, border-color 0.2s;
         }
-        .history-tag:hover { border-color: #ff4d4d; color: #fff; }
-        .history-tag::before { content: "🕒"; font-size: 11px; opacity: 0.7; }
 
-        /* Cards de Resultados com posição relativa para a estrela */
-        .result-card { 
-            position: relative;
-            background: rgba(30, 15, 15, 0.3); 
-            padding: 25px; 
-            border-radius: 16px; 
-            border: 1px solid #2d0f0f;
-            transition: transform 0.2s, border-color 0.2s;
+        .history-tag:hover {
+            border-color: var(--vermelho);
+            color: var(--branco);
         }
-        .result-card:hover { transform: translateY(-2px); border-color: #551a1a; }
-        .result-card .tag { display: inline-block; padding: 4px 10px; background: #3a1111; color: #ff6666; font-size: 12px; border-radius: 20px; margin-bottom: 12px; font-weight: bold; }
-        .result-card h2 { color: #ffffff; font-size: 1.3rem; margin-bottom: 10px; padding-right: 30px; }
-        .result-card p { color: #aaaaaa; font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
-        
-        /* Estrela Amarela no Canto Direito solicitado */
+
+        .history-tag::before {
+            content: "🕒";
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        /* Cards */
+        .result-card {
+            position: relative;
+
+            background: rgba(30, 10, 10, 0.55);
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            border: 1px solid #550000;
+
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+
+            border-color: var(--vermelho);
+
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.12);
+        }
+
+        /* Tag vermelha */
+        .result-card .tag {
+            display: inline-block;
+
+            padding: 4px 10px;
+
+            background: var(--vermelho);
+            color: var(--branco);
+
+            font-size: 12px;
+
+            border-radius: 20px;
+
+            margin-bottom: 12px;
+
+            font-weight: bold;
+        }
+
+        .result-card h2 {
+            color: var(--branco);
+
+            font-size: 1.3rem;
+
+            margin-bottom: 10px;
+
+            padding-right: 30px;
+        }
+
+        .result-card p {
+            color: #aaaaaa;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 15px;
+        }
+
+        /* Estrela */
         .favorite-star {
             position: absolute;
+
             top: 25px;
             right: 25px;
+
             color: #ffd700;
+
             font-size: 22px;
+
             cursor: pointer;
             user-select: none;
+
             transition: transform 0.2s;
         }
-        .favorite-star:hover { transform: scale(1.2); }
 
-        /* Botão dos Cards na cor #1a1a1a */
+        .favorite-star:hover {
+            transform: scale(1.2);
+        }
+
+        /* Botão dos cards */
         .btn-card {
             display: inline-block;
+
             padding: 8px 18px;
+
             background-color: #1a1a1a;
-            color: #fff;
+
+            color: var(--branco);
+
             text-decoration: none;
+
             font-size: 13px;
+
             border-radius: 6px;
+
             font-weight: 500;
-            border: 1px solid #333333;
-            transition: background-color 0.2s;
+
+            border: 1px solid #333;
+
+            transition: background-color 0.2s, border-color 0.2s;
         }
-        .btn-card:hover { background-color: #2b2b2b; }
+
+        .btn-card:hover {
+            background-color: var(--vermelho);
+            border-color: var(--vermelho);
+        }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            .main-layout { flex-direction: column; }
-            .filters-sidebar { width: 100%; }
-            .search-box { flex-direction: column; }
-            .btn-search { padding: 15px; }
+
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .filters-sidebar {
+                width: 100%;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .btn-search {
+                padding: 15px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div class="search-container">
+
         <header>
             <h1>Central de Estudos</h1>
-            <p>Explore artigos, livros, vídeo-aulas e resumos sobre qualquer matéria</p>
+            <p>
+                Explore artigos, livros, vídeo-aulas e resumos sobre qualquer matéria
+            </p>
         </header>
 
         <!-- Barra de Busca -->
         <div class="search-box">
-            <input type="text" class="search-input" placeholder="Digite o tema, matéria ou palavra-chave (ex: Crase, Funções Afins, Sintaxe)...">
-            <button class="btn-search">Pesquisar</button>
+
+            <input
+                type="text"
+                class="search-input"
+                placeholder="Digite o tema, matéria ou palavra-chave (ex: Crase, Funções Afins, Sintaxe)..."
+            >
+
+            <button class="btn-search">
+                Pesquisar
+            </button>
+
         </div>
 
         <div class="main-layout">
+
             <!-- Lateral de Filtros -->
             <aside class="filters-sidebar">
+
                 <div class="filter-group">
+
                     <h3>Tipo de Material</h3>
-                    <label><input type="checkbox" checked> Artigos Científicos</label>
-                    <label><input type="checkbox"> Vídeo-Aulas</label>
-                    <label><input type="checkbox"> Resumos / PDFs</label>
-                    <label><input type="checkbox"> Exercícios</label>
-                </div>
-                
-                <div class="filter-group">
-                    <h3>Grande Área</h3>
-                    <label><input type="checkbox"> Exatas & Engenharia</label>
-                    <label><input type="checkbox"> Biológicas & Saúde</label>
-                    <label><input type="checkbox"> Humanas & Sociais</label>
+
+                    <label>
+                        <input type="checkbox" checked>
+                        Artigos Científicos
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Vídeo-Aulas
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Resumos / PDFs
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Exercícios
+                    </label>
+
                 </div>
 
                 <div class="filter-group">
-                    <h3>Nível de Ensino</h3>
-                    <label><input type="checkbox"> Ensino Médio</label>
-                    <label><input type="checkbox"> Vestibular / ENEM</label>
-                    <label><input type="checkbox"> Ensino Superior</label>
+
+                    <h3>Grande Área</h3>
+
+                    <label>
+                        <input type="checkbox">
+                        Exatas & Engenharia
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Biológicas & Saúde
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Humanas & Sociais
+                    </label>
+
                 </div>
+
+                <div class="filter-group">
+
+                    <h3>Nível de Ensino</h3>
+
+                    <label>
+                        <input type="checkbox">
+                        Ensino Médio
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Vestibular / ENEM
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        Ensino Superior
+                    </label>
+
+                </div>
+
             </aside>
 
-            <!-- Seção de Resultados -->
+            <!-- Resultados -->
             <main class="results-section">
-                
-                <!-- Histórico de Pesquisa -->
+
+                <!-- Histórico -->
                 <div class="search-history-box">
-                    <div class="search-history-title">Histórico de Pesquisa</div>
-                    <div class="history-items">
-                        <a href="#" class="history-tag">Análise Sintática</a>
-                        <a href="#" class="history-tag">Equação do 2º Grau</a>
-                        <a href="#" class="history-tag">Revolução Industrial</a>
+
+                    <div class="search-history-title">
+                        Histórico de Pesquisa
                     </div>
+
+                    <div class="history-items">
+
+                        <a href="#" class="history-tag">
+                            Análise Sintática
+                        </a>
+
+                        <a href="#" class="history-tag">
+                            Equação do 2º Grau
+                        </a>
+
+                        <a href="#" class="history-tag">
+                            Revolução Industrial
+                        </a>
+
+                    </div>
+
                 </div>
 
-                <!-- Card de Gramática -->
+                <!-- Card Gramática -->
                 <article class="result-card">
+
                     <span class="favorite-star">★</span>
-                    <span class="tag">Gramática</span>
-                    <h2>Uso da Crase e Regência Verbal no Português Padrão</h2>
-                    <p>Guia completo focado nas regras obrigatórias, facultativas e nos casos proibidos do uso do acento grave. Inclui exemplos práticos voltados para redações de vestibulares e concursos públicos.</p>
-                    <a href="#" class="btn-card">Acessar Conteúdo</a>
+
+                    <span class="tag">
+                        Gramática
+                    </span>
+
+                    <h2>
+                        Uso da Crase e Regência Verbal no Português Padrão
+                    </h2>
+
+                    <p>
+                        Guia completo focado nas regras obrigatórias, facultativas
+                        e nos casos proibidos do uso do acento grave. Inclui exemplos
+                        práticos voltados para redações de vestibulares e concursos públicos.
+                    </p>
+
+                    <a href="#" class="btn-card">
+                        Acessar Conteúdo
+                    </a>
+
                 </article>
 
-                <!-- Card de Matemática -->
+                <!-- Card Matemática -->
                 <article class="result-card">
+
                     <span class="favorite-star">★</span>
-                    <span class="tag">Matemática</span>
-                    <h2>Estudo das Funções Quadráticas e Gráficos de Parábolas</h2>
-                    <p>Entenda o comportamento das equações de segundo grau, como calcular as raíces usando a fórmula de Bhaskara e a análise dos pontos de máximo e mínimo do vértice da parábola.</p>
-                    <a href="#" class="btn-card">Acessar Conteúdo</a>
+
+                    <span class="tag">
+                        Matemática
+                    </span>
+
+                    <h2>
+                        Estudo das Funções Quadráticas e Gráficos de Parábolas
+                    </h2>
+
+                    <p>
+                        Entenda o comportamento das equações de segundo grau,
+                        como calcular as raízes usando a fórmula de Bhaskara
+                        e a análise dos pontos de máximo e mínimo do vértice da parábola.
+                    </p>
+
+                    <a href="#" class="btn-card">
+                        Acessar Conteúdo
+                    </a>
+
                 </article>
+
             </main>
+
         </div>
+
     </div>
 
 </body>
