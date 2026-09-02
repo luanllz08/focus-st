@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +18,7 @@
 
         body {
             min-height: 100vh;
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,11 +41,13 @@
 
         .login-container {
             width: 380px;
+
             padding: 34px 35px 32px;
 
             background: rgba(28, 17, 18, 0.94);
 
             border: 1px solid rgba(255, 255, 255, 0.08);
+
             border-radius: 20px;
 
             box-shadow:
@@ -51,16 +57,22 @@
 
         .logo {
             display: block;
+
             width: 85px;
             height: 85px;
+
             object-fit: contain;
+
             margin: 0 auto 12px;
         }
 
         .subtitle {
             text-align: center;
+
             color: #999;
+
             font-size: 13px;
+
             margin-bottom: 28px;
         }
 
@@ -70,23 +82,28 @@
 
         label {
             display: block;
+
             margin-bottom: 8px;
 
             color: #9d9696;
+
             font-size: 12px;
         }
 
         input[type="email"],
         input[type="password"] {
+
             width: 100%;
             height: 41px;
 
             padding: 0 14px;
 
             color: #eee;
+
             background: #130b0c;
 
             border: 1px solid #251819;
+
             border-radius: 10px;
 
             outline: none;
@@ -102,8 +119,11 @@
 
         input[type="email"]:focus,
         input[type="password"]:focus {
+
             border-color: #e93636;
-            box-shadow: 0 0 0 2px rgba(233, 54, 54, 0.08);
+
+            box-shadow:
+                0 0 0 2px rgba(233, 54, 54, 0.08);
         }
 
         .password-area {
@@ -111,12 +131,17 @@
         }
 
         .forgot-password {
+
             display: block;
+
             width: fit-content;
+
             margin: 7px 0 0 auto;
 
             color: #ed3d3d;
+
             text-decoration: none;
+
             font-size: 11px;
         }
 
@@ -125,17 +150,22 @@
         }
 
         .options {
+
             display: flex;
+
             align-items: center;
+
             gap: 8px;
 
             margin: 19px 0 22px;
 
             color: #999;
+
             font-size: 11px;
         }
 
         .options input {
+
             width: 13px;
             height: 13px;
 
@@ -144,22 +174,30 @@
             cursor: pointer;
         }
 
+        .options label {
+            margin: 0;
+        }
+
         .login-button {
+
             width: 100%;
             height: 43px;
 
             border: none;
+
             border-radius: 10px;
 
-            background: linear-gradient(
-                180deg,
-                #f33c3c,
-                #e52e2e
-            );
+            background:
+                linear-gradient(
+                    180deg,
+                    #f33c3c,
+                    #e52e2e
+                );
 
             color: white;
 
             font-size: 13px;
+
             font-weight: bold;
 
             cursor: pointer;
@@ -171,11 +209,13 @@
         }
 
         .login-button:hover {
-            background: linear-gradient(
-                180deg,
-                #ff4646,
-                #ed3030
-            );
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ff4646,
+                    #ed3030
+                );
 
             transform: translateY(-1px);
 
@@ -188,15 +228,20 @@
         }
 
         .register {
+
             text-align: center;
+
             margin-top: 26px;
 
             color: #858080;
+
             font-size: 12px;
         }
 
         .register a {
+
             color: #ed3d3d;
+
             text-decoration: none;
         }
 
@@ -204,34 +249,48 @@
             text-decoration: underline;
         }
 
+
         /* Responsividade */
+
         @media (max-width: 500px) {
+
             .login-container {
+
                 width: calc(100% - 30px);
+
                 padding: 30px 25px;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
     <main class="login-container">
 
-        <!-- Troque pelo caminho da sua logo -->
+        <!-- LOGO -->
         <img
             src="logoff.png"
             alt="Logo"
             class="logo"
         >
 
+
         <p class="subtitle">
             Bem-vindo de volta
         </p>
 
+
         <form id="loginForm">
 
+
+            <!-- E-MAIL -->
+
             <div class="form-group">
+
                 <label for="email">
                     E-mail de acesso
                 </label>
@@ -243,7 +302,11 @@
                     placeholder="seu-email@empresa.com"
                     required
                 >
+
             </div>
+
+
+            <!-- SENHA -->
 
             <div class="form-group">
 
@@ -252,6 +315,7 @@
                 </label>
 
                 <div class="password-area">
+
                     <input
                         type="password"
                         id="password"
@@ -260,12 +324,20 @@
                         required
                     >
 
-                    <a href="#" class="forgot-password">
+                    <a
+                        href="#"
+                        class="forgot-password"
+                        id="forgotPassword"
+                    >
                         Esqueci minha senha
                     </a>
+
                 </div>
 
             </div>
+
+
+            <!-- LEMBRAR DE MIM -->
 
             <div class="options">
 
@@ -281,6 +353,9 @@
 
             </div>
 
+
+            <!-- BOTÃO ENTRAR -->
+
             <button
                 type="submit"
                 class="login-button"
@@ -290,36 +365,95 @@
 
         </form>
 
+
+        <!-- CADASTRO -->
+
         <p class="register">
+
             Ainda não possui uma conta?
+
             <a href="cadastro.html">
                 Criar conta
             </a>
+
         </p>
 
     </main>
 
+
     <script>
+
         const form = document.getElementById("loginForm");
 
+
         form.addEventListener("submit", function(event) {
+
+            // Impede o formulário de atualizar a página
             event.preventDefault();
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
 
-            if (!email || !password) {
+            // Pega os valores digitados
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+
+            // Verifica se os campos estão preenchidos
+            if (email === "" || password === "") {
+
                 alert("Preencha todos os campos.");
+
                 return;
             }
 
-            // Aqui você pode conectar ao seu backend/API
-            console.log("E-mail:", email);
-            console.log("Senha:", password);
 
-            alert("Login realizado!");
+            /*
+             * LOGIN REALIZADO
+             *
+             * Aqui você poderá colocar futuramente
+             * a validação com seu banco de dados/API.
+             *
+             * Por enquanto, qualquer e-mail e senha
+             * preenchidos permitem entrar.
+             */
+
+
+            // Salva o usuário para a próxima tela
+            sessionStorage.setItem(
+                "usuarioLogado",
+                "true"
+            );
+
+            sessionStorage.setItem(
+                "usuario",
+                email
+            );
+
+
+            // REDIRECIONA PARA A INTERFACE
+            window.location.href = "interface.html";
+
         });
+
+
+        // Link "Esqueci minha senha"
+
+        document
+            .getElementById("forgotPassword")
+            .addEventListener("click", function(event) {
+
+                event.preventDefault();
+
+                alert(
+                    "A recuperação de senha será implementada aqui."
+                );
+
+            });
+
     </script>
 
 </body>
+
 </html>
